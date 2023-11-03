@@ -1,0 +1,35 @@
+package com.example.dzone
+
+val phoneBook = mapOf<String, Int>("Andrey" to 9443355, "Pavel" to 4123433, "Anna" to 2455432, "Luba" to 2228899,
+    "Vova" to 9993322, "Dima" to 2220088, "Olya" to 8902345)
+
+fun main() {
+    println(phoneBook)
+    val phoneBookSize = phoneBook.size
+    println(phoneBookSize)
+
+    var isBig = "***"
+
+    if (phoneBookSize > 10) {
+        var isBig = "большой"
+    } else {
+        var isBig = "маленький"
+    }
+
+    println("Справочник содержет $phoneBookSize телефонов, т.е. справочник $isBig")
+}
+
+//fun main() {
+//    println(phoneBook)
+//    val phoneBookSize = phoneBook.size
+//    println(phoneBookSize)
+//
+//    var isBig = "большой"
+//
+//    if (phoneBookSize > 10) {
+//        println("Справочник содержет $phoneBookSize телефонов, т.е. справочник большой")
+//    } else {
+//        println("Справочник содержет $phoneBookSize телефонов, т.е. справочник маленький")
+//    }
+//
+//}
