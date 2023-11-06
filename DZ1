@@ -1,35 +1,93 @@
 package com.example.dzone
 
-val phoneBook = mapOf<String, Int>("Andrey" to 9443355, "Pavel" to 4123433, "Anna" to 2455432, "Luba" to 2228899,
-    "Vova" to 9993322, "Dima" to 2220088, "Olya" to 8902345)
-
-fun main() {
-    println(phoneBook)
-    val phoneBookSize = phoneBook.size
-    println(phoneBookSize)
-
-    var isBig = "***"
-
-    if (phoneBookSize > 10) {
-        var isBig = "большой"
-    } else {
-        var isBig = "маленький"
-    }
-
-    println("Справочник содержет $phoneBookSize телефонов, т.е. справочник $isBig")
-}
+// 1_ДЗ_Переменные
 
 //fun main() {
+//    val phoneBook = mapOf<String, Int>("Andrey" to 9443355, "Pavel" to 4123433, "Anna" to 2455432, "Luba" to 2228899,
+//        "Vova" to 9993322, "Dima" to 2220088, "Olya" to 8902345)
+//
 //    println(phoneBook)
+//
 //    val phoneBookSize = phoneBook.size
 //    println(phoneBookSize)
 //
-//    var isBig = "большой"
+//    var isBig = ""
 //
 //    if (phoneBookSize > 10) {
-//        println("Справочник содержет $phoneBookSize телефонов, т.е. справочник большой")
+//        isBig = "большой"
 //    } else {
-//        println("Справочник содержет $phoneBookSize телефонов, т.е. справочник маленький")
+//        isBig = "маленький"
 //    }
 //
+//    println("Справочник содержет $phoneBookSize телефонов, т.е. справочник $isBig")
+//
+//    println("")
+//    println("Вывести в консоль список только имен контактов(keys)")
+//    var listKeys = mutableListOf<String>()
+//    for (i in phoneBook.keys) {
+//        listKeys.add(i)
+//    }
+//    println(listKeys)
+//
+//    println("Вывести в консоль список только номеров телефонов(values)")
+//    var listValues = mutableListOf<Int>()
+//        for (i in phoneBook.values) {
+//            listValues.add(i)
+//    }
+//    println(listValues)
+//
 //}
+
+
+// 2_ДЗ_Введение
+
+//fun main() {
+//    println("Меня зовут Дмитрий")
+//    print("Мне 45 годиков")
+//    println("Опыта работы в IT не имею")
+//    println("Живу в Санкт-Петербурге") // в чем разница, между println и print?
+//    print("Я правильно понял, разница между println и print в том,")
+//    println(" что после print слелующее печатается на этой же строке?")
+//    print("Зачем это недо?")
+//}
+
+// 3_ДЗ_Переменные
+
+//fun main() {
+//    val firstName: String = "Дмитрий"
+//    val lastName: String = "Князьков"
+//    var height: Double = 1.80
+//    var weight: Float = 70.23f
+//
+//    var isChild: Boolean
+//    if (height < 1.5) {
+//        isChild = false
+//    } else if (weight < 40f) {
+//        isChild = false
+//    } else {
+//        isChild = true
+//    }
+//
+//    var info = "Меня зовут $firstName $lastName. Я ростом $height метров и весом $weight кг. Я взрослый и это $isChild"
+//    println(info)
+//
+//    height = 1.22
+//
+//    info = isIsChild(firstName, lastName, height, weight)
+//    println(info)
+//
+//}
+//
+//fun isIsChild (firstName: String, lastName: String, height: Double, weight: Float):String {
+//    var isChild: Boolean
+//    if (height < 1.5) {
+//        isChild = false
+//    } else if (weight < 40f) {
+//        isChild = false
+//    } else {
+//        isChild = true
+//    }
+//    return ("Меня зовут $firstName $lastName. Я ростом $height метров и весом $weight кг. Я взрослый и это $isChild")
+//}
+
+// 4_ДЗ_Функции
