@@ -1,0 +1,57 @@
+fun main() {
+    fun enteringNumber (): Int {
+        var number = ""
+        while (true) {
+            print("Введите число: ")
+            number = readln()
+            if (number.any { it.isLetter() }) {
+                println("Нельзя вводить буквенные символы")
+            }
+            else if (number.toInt() < 0) {
+                println("нельзя вводить отрицательные цифры")
+
+            } else {
+                return number.toInt()
+                break
+            }
+        }
+        return number.toInt()
+    }
+
+//    println()
+    fun creatingList(n: Int): List<Int>  {// Я так и не понял как создать неизменяемый список из N элементов
+        val list_ = mutableListOf<Int>()
+
+        for (it in 0..n-1) {
+            list_.add((-5..5).random())
+        }
+        return list_.toList()
+    }
+
+    fun transformationList(list_: List<Int>): MutableList<Int> {
+        var counter_ = 1
+        var llist_ = list_.toMutableList()
+        for (it in llist_) {
+            if (counter_ % 4 == 0) {
+                llist_[counter_-1] = llist_[counter_-1]*10
+            }
+            counter_++
+        }
+        return llist_
+    }
+
+
+    val enteringNumber = enteringNumber()
+    println(enteringNumber)
+    val creatingList = creatingList(enteringNumber)
+    println(creatingList)
+    val transformationList = transformationList(creatingList)
+    println(transformationList)
+    val summ = transformationList.sum()
+    val summof = transformationList.sumOf { it }
+    println("summ $summ")
+    println("summof $summof")
+    val filterr = transformationList.filter { it > 0 }
+    println("Список положительных цифр $filterr")
+
+}
