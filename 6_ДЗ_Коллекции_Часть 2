@@ -1,0 +1,76 @@
+fun main() {
+    fun creatMap():HashMap<String, String> {
+        var users = ""
+        do {
+            print("Сколько пользователей будет: ")
+            users = readln()
+        } while (users == "" || users.any { it.isLetter() } || users.toInt() < 1)
+
+        val mapUsers = HashMap<String, String>()
+
+        for (it in 1..users.toInt()) {
+            var select = select(it.toString())
+            while (mapUsers.containsKey(select[0])) {
+                println("Пользователь с таким Логином уже существует! Введите заново Логин и Пароль для User$it")
+                select = select(it.toString())
+            }
+            mapUsers.put(select[0], select[1])
+        }
+        println(mapUsers)
+        return mapUsers
+    }
+    val creatMap = creatMap()
+    var logToDatabase = logToDatabase(creatMap)
+    if (logToDatabase == true) {
+        dateBasee()
+    }
+}
+
+fun select(it: String = ""): MutableList<String> {
+    var login = ""
+    var password = ""
+    var userIt: String
+
+    if (it == "") {
+        userIt = ""
+    }
+    else {
+        userIt = "User$it"
+    }
+
+    do {
+        println("Введите Логин $userIt: ")
+        login = readln()
+    } while (login == "")// || mapUsers.containsKey(login))
+    do {
+        println("Введите Пароль $userIt: ")
+        password = readln()
+    } while (password == "")
+
+    var listMap = mutableListOf(login, password)
+    return listMap
+}
+
+fun logToDatabase(mapp: HashMap<String, String>): Boolean {
+    // запрашивает лог и пар, сравнивает, дает разрешение или нет
+    while (true) {
+        println("Для входа в систему введите Логин и Пароль")
+        var select = select()
+        if (mapp.containsKey(select[0])) {
+            if (mapp[select[0]] == select[1]) {
+                println("Вход в систему разрешон!")
+                return true
+            }
+            else {
+                println("Неверный пароль. Введите Логин и Пароль заново")
+            }
+        }
+        else {
+            println("Такого логина не существует.")
+        }
+    }
+}
+
+fun dateBasee() {
+    println("Вы в системе!!!!!")
+}
