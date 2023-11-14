@@ -1,0 +1,33 @@
+
+fun main() {
+    fun enteringNumber (): Int {
+        var number = ""
+        do {
+            print("Введите число: ")
+            number = readln()
+        } while (number.any { it.isLetter() } || number.toInt()<1)
+        return number.toInt()
+    }
+    fun calculatingFibonacciNumber (enteringNumber: Int): Long {
+        var listValue = mutableListOf<Long>(1, 2)
+        for (it in 1 .. enteringNumber-2) {
+            var addValue = listValue[it] + listValue[it-1]
+            listValue.add(it+1, addValue)
+
+        }
+        println(listValue)
+        return listValue[enteringNumber-1]
+    }
+    var cycl = ""
+    while (cycl.isEmpty()) {
+        val enteringNumber = enteringNumber()
+        val calculatingFibonacciNumber = calculatingFibonacciNumber(enteringNumber)
+
+        println("Числу $enteringNumber соответствует число Фибоначчи $calculatingFibonacciNumber")
+        println("Нажмите Enter, для продолжения подсчетов. Для выхода введите любой символ.")
+        cycl = readln()
+    }
+
+// Удивительно, даже при Long, если ввести большое число, то в конце будут появлятся числа
+// с отрицательными значениями. Почему?
+}
