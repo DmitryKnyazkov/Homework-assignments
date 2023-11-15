@@ -1,8 +1,14 @@
 fun main() {
     fun creatMap():HashMap<String, String> {
+        // Эта функция формирует список пользователей, имеющих доступ к некой системе "dateBasee"
+        // и заносит логин и пароль пользователей в HashMap (словарь ключ-значение). Сначала она запрашивает
+        // скольким пользователям будет доступен вход в систему dateBasee, обрабатывает неправильно
+        // введенные значения. Далее эта функция через цикл обращается к функции select от которой
+        // получает список из 2 элементов - логин и пороль пользователя получающего достув к системе.
+        //Возвращает функция HashMap пользователей с их логинами и паролями.
         var users = ""
         do {
-            print("Сколько пользователей будет: ")
+            print("Скольким пользователям будет открыт доступ к системе DataBasee? Введите число: ")
             users = readln()
         } while (users == "" || users.any { it.isLetter() } || users.toInt() < 1)
 
@@ -16,17 +22,26 @@ fun main() {
             }
             mapUsers.put(select[0], select[1])
         }
+        println("Вы определили количество пользователей с доступом к системе. Ниже их логины и пароли.")
         println(mapUsers)
         return mapUsers
     }
-    val creatMap = creatMap()
-    var logToDatabase = logToDatabase(creatMap)
+    val creatMap = creatMap() // вызов функции creatMap для создания списка пользователей с доступом к системе
+
+    println("Теперь мы симитируем вход пользователя в систему.")
+
+    var logToDatabase = logToDatabase(creatMap) // вызов функции logToDatabase, которая сравнивает
+    // определяет есть ли  пользователь с введенным логином и паролем. если есть, то возвращает true.
     if (logToDatabase == true) {
         dateBasee()
     }
 }
 
 fun select(it: String = ""): MutableList<String> {
+    // Данная функция запрашивает логин и пароль. обрабатывает неправильно введенные значения.
+    // Возвращает список из двух элементов - логин и пароль.
+    // Функция запрашивается в функции creatMap для помощи в формировании списка доступных пользователей
+    // к системе и функцией logToDatabase для получения доступа к некой системе dateBasee
     var login = ""
     var password = ""
     var userIt: String
@@ -52,7 +67,7 @@ fun select(it: String = ""): MutableList<String> {
 }
 
 fun logToDatabase(mapp: HashMap<String, String>): Boolean {
-    // запрашивает лог и пар, сравнивает, дает разрешение или нет
+    // Функция открывает вход в систему dateBasee.
     while (true) {
         println("Для входа в систему введите Логин и Пароль")
         var select = select()
@@ -72,5 +87,6 @@ fun logToDatabase(mapp: HashMap<String, String>): Boolean {
 }
 
 fun dateBasee() {
+    // Имитация некой системы dateBasee.
     println("Вы в системе!!!!!")
 }
