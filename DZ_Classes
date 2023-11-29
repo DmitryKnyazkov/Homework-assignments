@@ -1,0 +1,191 @@
+package com.example.dzone
+
+fun main () {
+    val objectClassTVMakerAndSetter = TVMakerAndSetter()
+    while (true) {
+        objectClassTVMakerAndSetter.setOrMakeTV()
+    }
+}
+
+class TVMakerAndSetter () {
+    var mapTV_: MutableMap<Int, TV> = mutableMapOf()
+    var counter: Int = 1
+    fun makerTV() {
+        val model_ = (100..300).random()
+        mapTV_.put(
+            counter,
+            TV(
+                "Samsung",
+                "a$model_",
+                (15..20).random(),
+                quantityOfChannels = (3..20).random(),
+                maxVolume = (10..30).random()
+            )
+        )
+        counter++
+        println("Вы создали новый телевизор. Вот список доступных телевизоров: ")
+        println(mapTV_)
+    }
+
+    fun printSet() {
+        println(
+            "Управление телевизором:\n" +
+                    "\"w\" - Включить или Выключить телевизор\n" +
+                    "Ввод цифр в диапозоне существующих каналов включит канал под этой цифрой\n" +
+                    "\"+\" - Следующей канал\n" +
+                    "\"-\" - Предыдущий канал\n" +
+                    "\"a\" - Увеличить громкость\n" +
+                    "\"s\" - Уменьшить громкость\n" +
+                    "\"p\" - Распечатать список каналов"
+        )
+
+    }
+
+    fun setOrMakeTV() {
+
+        do {
+            print(
+                "Напишите \"с\" если вы хотите создать новый телевизор\n" +
+                        "Напишите \"у\" если вы хотите управлять телевизором\n" +
+                        "Введите символ (буквы английские!!!!): "
+            )
+            val answer = readln()
+            if (answer == "c") {
+                makerTV()
+            }
+            if (answer == "y") {
+                setTV()
+            }
+        } while (answer == "c" || answer == "y")
+    }
+
+    fun setTV() {
+        println("Вот список телевизоров: ")
+        println(mapTV_)
+        print("Введите номер телевизора, которым вы хотите управлять: ")
+        var currentTV = mapTV_[readln().toInt()]
+        if (currentTV != null) {
+            println("Вы управляете телевизором ${currentTV.model}")
+            printSet()
+            while (true) {
+                println()
+                println(currentTV.infoTV())
+                print("Введите симвл из списка выше, чтобы управлять телевизором. Или введите любые другие символы, чтобы сменить телевизор: ")
+                var input = readln()
+                val validСharacters: MutableList<String> =
+                    mutableListOf("w", "+", "-", "a", "s", "p")
+                for (char in 1..currentTV.channelsSize) {
+                    validСharacters.add(char.toString())
+                }
+                if (input !in validСharacters) {
+                    println("Недопустимое значение")
+                    break
+                }
+
+                when (input) {
+                    "w" -> currentTV.setPower()
+                    "p" -> currentTV.printChannelList()
+                    "+" -> currentTV.setChannelUpDown("+")
+                    "-" -> currentTV.setChannelUpDown("-")
+                    "a" -> currentTV.volumeUp(1)
+                    "s" -> currentTV.volumeDown(1)
+                    in validСharacters -> currentTV.setChannelNumber(input.toInt())
+                }
+            }
+        }
+    }
+}
+
+class TV (
+    val brand: String,
+    val model: String,
+    val diagonalSize: Int,
+    private var power: Boolean = false,
+    val quantityOfChannels: Int,
+    val maxVolume: Int,
+    private var volume: Int = 0,
+    var channelList: MutableList<String> = creatChannelList(quantityOfChannels),
+    private var currentСhannel: String = channelList[0]) {
+    val channelsSize: Int = channelList.size
+
+    companion object Channels {
+        fun creatChannelList(quantityOfChannels: Int): MutableList<String> {
+            var channelList: MutableList<String> = mutableListOf()
+            for (newChannel in 1..quantityOfChannels) {
+                channelList.add(newChannel.toString())
+            }
+            channelList = channelList.shuffled().toMutableList()
+
+            return channelList
+        }
+    }
+
+    fun printChannelList() {
+        if (power != true) {
+            println("Телевизор выключен, поэтому не распечатаю список каналов!")
+        } else {
+            val channelsSize = channelList.size
+            for (numberChannel in 1..channelsSize) {
+                var nameChannel: String = channelList[numberChannel - 1]
+                println("кнопка $numberChannel - имя канала $nameChannel")
+            }
+        }
+    }
+
+    fun volumeUp(value: Int) {
+        if (power == true) {
+            if (volume + value > maxVolume) {
+                volume = maxVolume
+            } else volume += value
+        } else println("Телевизор выключен. Не могу увеличить громкость")
+    }
+
+    fun volumeDown(value: Int) {
+        if (power == true) {
+            if (volume - value < 0) {
+                volume = 0
+            } else volume -= value
+        } else println("Телевизор выключен. Не могу уменьшить громкость")
+    }
+
+    fun setChannelNumber(value: Int) {
+        if (power != true) {
+            setPower()
+        }
+        currentСhannel = channelList[value - 1]
+    }
+
+    fun setChannelUpDown(value: String) {
+        if (power != true) {
+            setPower()
+        } else {
+            if (value == "+") {
+                var currentIndex: Int = channelList.indexOf(currentСhannel)
+                if (currentIndex + 1 > channelList.lastIndex) {currentСhannel = channelList[0]}
+                else currentСhannel = channelList[currentIndex + 1]
+            }
+            if (value == "-") {
+                var currentIndex: Int = channelList.indexOf(currentСhannel)
+                if (currentIndex - 1 < 0) {currentСhannel = channelList.last()}
+                else currentСhannel = channelList[currentIndex - 1]
+            } else {
+                println("не правильное значение")
+            }
+        }
+    }
+
+    fun setPower() {
+        power = !power
+    }
+
+    override fun toString(): String {
+        return "$model"
+    }
+    fun infoTV(): String {
+        if (power == true) {
+            return "Я телевизор $brand модели $model имею диагональ $diagonalSize. У меня $channelsSize каналов. \n" +
+                    "В данный момент включен канал $currentСhannel и Громкость $volume\n" +
+                    "Телевизор включен"
+        } else return "Телевизор выключен"
+    }
+}
