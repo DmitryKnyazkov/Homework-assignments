@@ -1,0 +1,34 @@
+package com.example.dzone
+
+fun main() {
+    val grandfatherMonster = GrandfatherMonster(2, 2, 1, 1)
+    println(grandfatherMonster)
+    grandfatherMonster.setHands(2)
+    println(grandfatherMonster)
+    val fatherMonster = FatherMonster(2)
+    println(fatherMonster)
+}
+
+open class GrandfatherMonster(
+    var hands: Int = 1,
+    var foot: Int = 2,
+    val bady: Int =1,
+    var head: Int = 1
+) {
+    fun setHands(value: Int) {
+//        hands = hands + value
+    }
+
+    override fun toString(): String {
+        return "hands: $hands, var foot: $foot, val bady: $bady, var head: $head"
+    }
+}
+
+class FatherMonster(
+
+    var tail: Int = 1
+) : GrandfatherMonster() {
+    override fun toString(): String {
+        return "hands: $hands, var foot: $foot, val bady: $bady, var head: $head, tail: $tail "
+    }
+}
