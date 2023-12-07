@@ -1,22 +1,35 @@
 package com.example.dzone
 
 fun main() {
-    val grandfatherMonster = GrandfatherMonster(2, 2, 1, 1)
+    val grandfatherMonster = GrandfatherMonster()
     println(grandfatherMonster)
-    grandfatherMonster.setHands(2)
+    grandfatherMonster.setHands_(2)
     println(grandfatherMonster)
     val fatherMonster = FatherMonster(2)
     println(fatherMonster)
+    fatherMonster.setHands_(10)
+    println(fatherMonster)
+    val son = Son()
+    println(son)
+    son.setHands_(22)
+    son.ears =22
+    println(son)
+    son.setTail_(33)
+    println(son)
+    son.tail = 100
+    println(son)
 }
 
 open class GrandfatherMonster(
-    var hands: Int = 1,
-    var foot: Int = 2,
-    val bady: Int =1,
-    var head: Int = 1
+
 ) {
-    fun setHands(value: Int) {
-//        hands = hands + value
+    var hands: Int = 1
+    var foot: Int = 2
+    val bady: Int = 1
+    var head: Int = 1
+
+    fun setHands_(value: Int) {
+        hands = hands + value
     }
 
     override fun toString(): String {
@@ -24,11 +37,20 @@ open class GrandfatherMonster(
     }
 }
 
-class FatherMonster(
-
+//()
+open class FatherMonster(
     var tail: Int = 1
 ) : GrandfatherMonster() {
+
+    fun setTail_(value: Int) {
+        tail = tail + value
+    }
     override fun toString(): String {
         return "hands: $hands, var foot: $foot, val bady: $bady, var head: $head, tail: $tail "
+    }
+}
+class Son(var ears: Int = 2): FatherMonster() {
+    override fun toString(): String {
+        return "hands: $hands, var foot: $foot, val bady: $bady, var head: $head, tail: $tail, ears: $ears "
     }
 }
